@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electro 8a</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #2c3e50, #1a1a2e);
+            color: white;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .slogan {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #e0e0e0;
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            text-align: center;
+            margin: 40px 0 30px;
+            font-size: 2.2rem;
+            color: #2c3e50;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #2c3e50);
+            border-radius: 2px;
+        }
+        
+        .catalog {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .product {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-img {
+            width: 100%;
+            height: 180px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .product:hover .product-img img {
+            transform: scale(1.05);
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        
+        .product-desc {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .product-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(44, 62, 80, 0.9);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .product:hover .product-overlay {
+            opacity: 1;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        
+        .option {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .option:hover {
+            transform: translateY(-5px);
+        }
+        
+        .option-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(90deg, #2980b9, #3498db);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(41, 128, 185, 0.4);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            background: #2c3e50;
+            color: white;
+            border-radius: 20px 20px 0 0;
+        }
+        
+        @media (max-width: 768px) {
+            .catalog {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .slogan {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .catalog {
+                grid-template-columns: 1fr;
+            }
+            
+            .options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Electro 8a</h1>
+            <p class="slogan">Brindando tecnología de la mejor calidad</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <h2>Nuestro catálogo</h2>
+        <div class="catalog">
+            <!-- Los productos se cargarán dinámicamente con JavaScript -->
+        </div>
+        
+        <h2>Opciones para ti</h2>
+        <div class="options">
+            <!-- Las opciones se cargarán dinámicamente con JavaScript -->
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2023 Electro 8a - Brindando tecnología de la mejor calidad</p>
+        </div>
+    </footer>
+
+    <script>
+        // =============================================
+        // CONFIGURACIÓN - MODIFICA ESTOS VALORES SEGÚN NECESITES
+        // =============================================
+        
+        // Ruta base para las imágenes (cambia esta variable según tu estructura de carpetas)
+        const IMAGES_BASE_PATH = 'images/productos/';
+        
+        // URLs de los formularios (cambia estas variables según tus necesidades)
+        const URL_SOPORTE = 'https://ejemplo.com/formulario-soporte';
+        const URL_GARANTIA = 'https://ejemplo.com/formulario-garantia';
+        const URL_FINANCIACION = 'https://ejemplo.com/formulario-financiacion';
+        const URL_EXPRESS = 'https://ejemplo.com/formulario-express';
+        const URL_CONFIGURACION = 'https://ejemplo.com/formulario-configuracion';
+        const URL_NEWSLETTER = 'https://ejemplo.com/formulario-newsletter';
+        
+        // Datos de los productos (puedes modificar las rutas de las imágenes según necesites)
+        const productos = [
+            {
+                id: 1,
+                nombre: 'Smartphone X10',
+                descripcionCorta: 'Ultra delgado con cámara de 108MP',
+                descripcionLarga: 'Diseño premium, pantalla AMOLED de 6.7", batería de 5000mAh y procesador de última generación.',
+                imagen: 'smartphone-x10.jpg'
+            },
+            {
+                id: 2,
+                nombre: 'Laptop Pro',
+                descripcionCorta: 'Potencia y rendimiento para trabajo',
+                descripcionLarga: 'Intel i7, 16GB RAM, SSD 1TB, pantalla 15.6" Full HD, ideal para profesionales y gamers.',
+                imagen: 'laptop-pro.jpg'
+            },
+            {
+                id: 3,
+                nombre: 'Audífonos Bluetooth',
+                descripcionCorta: 'Sonido premium sin cables',
+                descripcionLarga: 'Cancelación de ruido activa, 30 horas de batería, resistencia al agua y diseño ergonómico.',
+                imagen: 'audifonos-bluetooth.jpg'
+            },
+            {
+                id: 4,
+                nombre: 'Smartwatch Series 5',
+                descripcionCorta: 'Monitorea tu salud y actividad',
+                descripcionLarga: 'Monitor de ritmo cardíaco, GPS integrado, resistente al agua, notificaciones y llamadas.',
+                imagen: 'smartwatch-series5.jpg'
+            },
+            {
+                id: 5,
+                nombre: 'Cámara Mirrorless',
+                descripcionCorta: 'Profesional en un cuerpo compacto',
+                descripcionLarga: 'Sensor full frame, 4K video, enfoque automático avanzado y conectividad WiFi y Bluetooth.',
+                imagen: 'camara-mirrorless.jpg'
+            },
+            {
+                id: 6,
+                nombre: 'Altavoz Inteligente',
+                descripcionCorta: 'Asistente de voz con sonido envolvente',
+                descripcionLarga: 'Control por voz, sonido 360°, compatible con asistentes virtuales y control de domótica.',
+                imagen: 'altavoz-inteligente.jpg'
+            },
+            {
+                id: 7,
+                nombre: 'Impresora Multifunción',
+                descripcionCorta: 'Imprime, escanea y copia',
+                descripcionLarga: 'WiFi, tanque de tinta de alto rendimiento, pantalla táctil y aplicaciones móviles.',
+                imagen: 'impresora-multifuncion.jpg'
+            },
+            {
+                id: 8,
+                nombre: 'Consola de Videojuegos',
+                descripcionCorta: 'Experiencia de juego inmersiva',
+                descripcionLarga: '4K HDR, 120fps, almacenamiento de 1TB, compatible con realidad virtual y juegos retro.',
+                imagen: 'consola-videojuegos.jpg'
+            },
+            {
+                id: 9,
+                nombre: 'Cargador Rápido',
+                descripcionCorta: 'Carga tu dispositivo en minutos',
+                descripcionLarga: 'Tecnología de carga rápida, puertos múltiples, protección contra sobrecarga y compacto.',
+                imagen: 'cargador-rapido.jpg'
+            },
+            {
+                id: 10,
+                nombre: 'Monitor Curvo',
+                descripcionCorta: 'Inmersión total con 1800R',
+                descripcionLarga: '32" 4K UHD, frecuencia de 144Hz, FreeSync, HDR10 y modo lectura para reducir fatiga visual.',
+                imagen: 'monitor-curvo.jpg'
+            },
+            {
+                id: 11,
+                nombre: 'Teclado Mecánico',
+                descripcionCorta: 'Precisión y durabilidad para gamers',
+                descripcionLarga: 'Switches Cherry MX, retroiluminación RGB, reposamuñecas y teclas programables.',
+                imagen: 'teclado-mecanico.jpg'
+            },
+            {
+                id: 12,
+                nombre: 'Ratón Inalámbrico',
+                descripcionCorta: 'Ergonómico y de alta precisión',
+                descripcionLarga: '16000 DPI, 6 botones programables, carga rápida, diseño para diestros y zurdos.',
+                imagen: 'raton-inalambrico.jpg'
+            }
+        ];
+        
+        // Datos de las opciones
+        const opciones = [
+            {
+                titulo: 'Soporte Técnico',
+                descripcion: 'Asistencia especializada para tus dispositivos',
+                url: URL_SOPORTE
+            },
+            {
+                titulo: 'Garantía Extendida',
+                descripcion: 'Protege tu inversión por más tiempo',
+                url: URL_GARANTIA
+            },
+            {
+                titulo: 'Financiación',
+                descripcion: 'Lleva tu tecnología favorita en cuotas',
+                url: URL_FINANCIACION
+            },
+            {
+                titulo: 'Entrega Express',
+                descripcion: 'Recibe tu pedido en menos de 24h',
+                url: URL_EXPRESS
+            },
+            {
+                titulo: 'Configuración',
+                descripcion: 'Te ayudamos a configurar tus dispositivos',
+                url: URL_CONFIGURACION
+            },
+            {
+                titulo: 'Newsletter',
+                descripcion: 'Recibe ofertas exclusivas en tu email',
+                url: URL_NEWSLETTER
+            }
+        ];
+        
+        // =============================================
+        // CÓDigo PARA CARGAR LOS ELEMENTOS DINÁMICAMENTE
+        // =============================================
+        
+        // Función para cargar los productos en el catálogo
+        function cargarProductos() {
+            const catalogContainer = document.querySelector('.catalog');
+            
+            productos.forEach(producto => {
+                const productElement = document.createElement('div');
+                productElement.className = 'product';
+                
+                productElement.innerHTML = `
+                    <div class="product-img">
+                        <img src="${IMAGES_BASE_PATH}${producto.imagen}" alt="${producto.nombre}">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">${producto.nombre}</h3>
+                        <p class="product-desc">${producto.descripcionCorta}</p>
+                    </div>
+                    <div class="product-overlay">
+                        <h3>${producto.nombre}</h3>
+                        <p>${producto.descripcionLarga}</p>
+                    </div>
+                `;
+                
+                catalogContainer.appendChild(productElement);
+            });
+        }
+        
+        // Función para cargar las opciones
+        function cargarOpciones() {
+            const optionsContainer = document.querySelector('.options');
+            
+            opciones.forEach(opcion => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                
+                optionElement.innerHTML = `
+                    <h3 class="option-title">${opcion.titulo}</h3>
+                    <p>${opcion.descripcion}</p>
+                    <a href="${opcion.url}" class="btn">Más información</a>
+                `;
+                
+                optionsContainer.appendChild(optionElement);
+            });
+        }
+        
+        // Cargar los elementos cuando la página esté lista
+        document.addEventListener('DOMContentLoaded', () => {
+            cargarProductos();
+            cargarOpciones();
+        });
+    </script>
+</body>
+</html>
